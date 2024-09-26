@@ -1,5 +1,6 @@
 package marcet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
@@ -21,6 +22,7 @@ public class Order {
     @Column(name = "order_id")
     private Long orderId;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order") // LSS Добавил новую связь и новый парамент в модель Order
     @Cascade(org.hibernate.annotations.CascadeType.ALL) // на лекции ещё вот это добавляли здесь - вроде включили каскадное сохранение
     private List<OrderItem> orderItems;

@@ -58,18 +58,9 @@ public class ProductController {
         productService.deleteProductById(product_id);
     }
 
+
     @RequestMapping(value = "/get-all", method = RequestMethod.GET)
     public Page<ProductDTO> findAllProducts(@RequestParam MultiValueMap<String, String> params,
-                                            @RequestParam(name = "page", defaultValue = "1") Integer page) {
-        for (int i = 0; i < params.size(); i++) {
-            log.info("Продукты добавленные в корзину {}", params.toSingleValueMap());
-        }
-
-        return productService.findAllProducts(ProductSpecifications.build(params), page, 5);
-    }
-    //@PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/get-all-admin", method = RequestMethod.GET)
-    public Page<ProductDTO> findAllProductsAdm(@RequestParam MultiValueMap<String, String> params,
                                             @RequestParam(name = "page", defaultValue = "1") Integer page) {
         for (int i = 0; i < params.size(); i++) {
             log.info("Продукты добавленные в корзину {}", params.toSingleValueMap());

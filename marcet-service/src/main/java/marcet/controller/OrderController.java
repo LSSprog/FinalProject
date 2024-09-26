@@ -2,6 +2,7 @@ package marcet.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import marcet.dto.OrderDTO;
 import marcet.dto.OrderShowDTO;
 import marcet.exceptions_handling.MarketError;
 import marcet.model.JwtResponse;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,5 +59,12 @@ public class OrderController {
     public ResponseEntity<?> showOrderOnNumber(@RequestBody Long orderNumber){
         log.info("OrderNumber {}", orderNumber);
         return ResponseEntity.ok(orderService.showOrderOnNumber(orderNumber));
+    }
+
+    @GetMapping //LSS список всех заказов по юзеру
+    public List<OrderDTO> findAllOrderByUsername(Principal principal) {
+        String username = principal.getName();
+        List<OrderDTO> orderList = orderService.getAllByUsername(username);
+        return orderList;
     }
 }

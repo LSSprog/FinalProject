@@ -1,5 +1,6 @@
 package marcet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,7 @@ public class Address {
     @Column(name = "house_number_fld")
     private String houseNumber;
 
-
+    @JsonIgnore//Нужо ставить когда появляется ошибка переполнения стека
     @ManyToOne // LSS добавил связь и изменил тип данных
     @JoinColumn(name = "user_id")
     private User user;

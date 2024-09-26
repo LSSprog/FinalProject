@@ -26,6 +26,7 @@ public class BasketController {
 
     @PostMapping("/add") //LSS скопировал метод выше добавив Principal и возврат теперь BasketItemDTO
     public List<BasketItemDTO> addProductToBasket(@RequestBody ProductDTO productDTO, Principal principal) {
+        log.info("Product {},  Principal {}", productDTO.getTitle(), principal.getName());
         return basketService.addProductToBasket(productDTO, principal.getName());
     }
 
@@ -46,6 +47,7 @@ public class BasketController {
 
     @PostMapping("/del") //LSS //LSS скопировал метод выше добавив Principal и возврат теперь BasketItemDTO
     public List<BasketItemDTO> delProductFromBasket(@RequestBody ProductDTO productDTO, Principal principal) {
+        log.info("Product {},  Principal {}", productDTO.getTitle(), principal.getName());
         return basketService.delProductFromBasket(productDTO, principal.getName());
     }
 

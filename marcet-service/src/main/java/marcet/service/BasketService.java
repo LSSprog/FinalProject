@@ -219,7 +219,6 @@ public class BasketService {
         List<BasketItem> basketItems = basketItemRepository.findAllByUser(user);
         for (BasketItem bi: basketItems) {
             basketItemRepository.delete(bi);
-
         }
     }
 }

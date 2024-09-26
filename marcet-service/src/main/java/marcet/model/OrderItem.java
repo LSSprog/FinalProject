@@ -23,6 +23,7 @@ public class OrderItem {
     @Column(name = "order_item_id")
     private Long orderItemId;
 
+    @JsonIgnore
     @ManyToOne // LSS добавил связь и изменил тип данных
     @JoinColumn(name = "order_id")
     private Order order;

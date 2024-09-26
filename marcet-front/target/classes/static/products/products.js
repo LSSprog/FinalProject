@@ -53,6 +53,7 @@ angular.module('app').controller('productController', function($scope, $http, $l
 
     $scope.addBasket = function (product) {
         console.log(product)
+        console.log($http.defaults.headers.common.Authorization)
         $http.post(contextPath + 'service/basket/add', product )
             .then(function successCalback(response){
                 $scope.basketProduct = response.data

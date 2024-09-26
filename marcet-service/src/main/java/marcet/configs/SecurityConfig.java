@@ -26,16 +26,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();//Защита от подделки межсайтовых запросов, отключена
         http.cors();//
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.authorizeRequests() // метод для ограничения доступа
                 .antMatchers("/order/**").authenticated() // antMatchers определяет какую ссылку и каким способом защищать
-                .antMatchers("/products/get-all-admin").hasAnyRole("ADMIN")
+                .antMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest()
                 .permitAll() // anyRequest определяет защиту всех ссылок
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .headers().frameOptions().disable();
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
 

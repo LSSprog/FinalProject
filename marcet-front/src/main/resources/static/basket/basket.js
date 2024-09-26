@@ -1,18 +1,22 @@
 angular.module('app').controller('basketController', function ($scope, $http, $localStorage) {
     const contextPath = 'http://localhost:8701/zuul/';
     let userName;
+    let addressId;
     userName = $localStorage.currentUser.username;
+    addressId = $localStorage.currentUser.adressId;
 
     $scope.getBasket = function () {
         $http.get(contextPath + 'service/basket/get-basket')
             .then(function (response) {
+                console.log(response)
                 $scope.basketProduct = response.data;
                 $scope.sumCost();
             });
     };
 
-    $scope.delProductOfBasket = function (p) {
-        $http.post(contextPath + 'service/basket/del', p)
+    $scope.delProductOfBasket = function (productDTO) {
+        console.log(productDTO + "    product")
+        $http.post(contextPath + 'service/basket/del', productDTO)
             .then(function (response){
                 $scope.basketProduct = response.data;
                 $scope.sumCost();
@@ -29,8 +33,12 @@ angular.module('app').controller('basketController', function ($scope, $http, $l
     }
 
     $scope.createOrder = function(){
-        console.log("UserName - ", userName)
-        $http.post(contextPath + 'service/order/create', userName)
+        let orderDTO = {    userName: $localStorage.currentUser.username,
+                        addressId: $localStorage.currentUser.adressId
+        }
+
+        console.log(orderDTO)
+        $http.post(contextPath + 'service/order/create', orderDTO)
             .then(function (response){
                 console.log(response.data)
                 $scope.orderNumber = response.data.orderId
@@ -55,6 +63,7 @@ angular.module('app').controller('basketController', function ($scope, $http, $l
     }
 
     $scope.decrimentCount = function (p){
+        console.log(p);
         $http.post(contextPath + 'service/basket/decriment', p)
             .then(function(response){
                 $scope.basketProduct = response.data

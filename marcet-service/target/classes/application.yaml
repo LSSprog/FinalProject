@@ -5,14 +5,14 @@ server:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/market_fp_db?serverTimezone=GMT
-    username: root
-    password: Zz123456
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/market_fp_db?serverTimezone=GMT
+#    username: root
+#    password: Zz123456
 
-#    url: jdbc:mysql://109.173.124.43:43306/final_project?serverTimezone=GMT
-#    username: ${DB_USR}
-#    password: ${DB_PWD}
+    url: jdbc:mysql://109.173.124.43:43306/market_fp_db?serverTimezone=GMT
+    username: ${DB_USR}
+    password: ${DB_PWD}
   jpa:
     show-sql: true
     properties:

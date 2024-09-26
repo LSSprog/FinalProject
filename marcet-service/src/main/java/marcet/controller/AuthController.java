@@ -2,10 +2,16 @@ package marcet.controller;
 
 import lombok.RequiredArgsConstructor;
 import marcet.bean.JwtTokenUtil;
+import marcet.dto.UserDTO;
 import marcet.model.JwtRequest;
 import marcet.model.JwtResponse;
 import marcet.exceptions_handling.MarketError;
+import marcet.model.User;
+import marcet.pojo.DataUserDTO;
+import marcet.service.AddressService;
 import marcet.service.AuthService;
+import marcet.service.CategoryService;
+import marcet.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,6 +31,9 @@ public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final AuthService authService;
     private final JwtTokenUtil jwtTokenUtil;
+    private final UserService userService;
+    private final AddressService addressService;
+
 
     @PostMapping("/auth")
     public ResponseEntity<?> createAuthTocen(@RequestBody JwtRequest authRequest) {
@@ -35,7 +44,10 @@ public class AuthController {
         }
         UserDetails userDetails = authService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generationToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
-
+        DataUserDTO dataUserDTO = new DataUserDTO(
+                new JwtResponse(token),
+                userService.convertToDto(userService.getUserFromName(authRequest.getUsername())),
+                        addressService.getAddressByUser(authRequest.getUsername()));
+        return ResponseEntity.ok(dataUserDTO);
     }
 }

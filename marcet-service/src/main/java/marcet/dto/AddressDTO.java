@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import marcet.model.Address;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -22,4 +23,13 @@ public class AddressDTO {
     private String street;
     private String houseNumber;
     private Long userId;
+
+    public AddressDTO(Address address) {
+        this.addressId = address.getAddressId();
+        this.region = address.getRegion();
+        this.city = address.getCity();
+        this.street = address.getStreet();
+        this.houseNumber = address.getHouseNumber();
+        this.userId = address.getUser().getUserId();
+    }
 }

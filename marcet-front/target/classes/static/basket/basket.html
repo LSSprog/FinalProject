@@ -11,16 +11,16 @@
     </thead>
     <tbody>
     <tr ng-repeat="p in basketProduct">
-        <td>{{p.title}}</td>
-        <td>{{p.cost}}</td>
+        <td>{{p.productDTO.title}}</td>
+        <td>{{p.productDTO.price}}</td>
         <td>
-            <button class="btn " ng-click="decrimentCount(p)">-</button>
-            {{p.quantity}}
-            <button class="btn " ng-click="incrementCount(p)">+</button>
+            <button class="btn " ng-click="decrimentCount(p.productDTO)">-</button>
+            {{p.productDTO.quantity}}
+            <button class="btn " ng-click="incrementCount(p.productDTO)">+</button>
         </td>
         <td>{{p.sumCost}}</td>
         <td>
-            <button class="btn btn-danger" ng-click="delProductOfBasket(p)">Удалить</button>
+            <button class="btn btn-danger" ng-click="delProductOfBasket(p.productDTO)">Удалить</button>
         </td>
     </tr>
     <tr>
